@@ -8,7 +8,6 @@ const Books = (props) => {
             <h2>Books</h2>
             <div className="row">
                 {props.currencies.map((term) => {
-                    console.log("currrencies", term)
                     return (
                     <div className="col-3">
                       <button onClick={() => props.changeCurrency(term)}>
@@ -45,7 +44,6 @@ const Books = (props) => {
                 </div>
             </div>
         </div>
-
     );
 }
 

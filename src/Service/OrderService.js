@@ -2,12 +2,25 @@ import axios from '../Custom-axios/oder-axios';
 
 const OrderService = {
 
-    createOrder: () => {
-        return axios.get("/new-order")
+    createOrder: (user) => {
+        return axios.post("/new-order", {
+            "id" : user.id,
+            "username" : user.username,
+            "address" : {
+                "street" : user.address.street,
+                "streetNumber" : user.address.streetNumber,
+                "city" : user.address.city,
+                "country" : user.address.country
+            }
+        })
     },
 
     getAllOrders: () => {
-        return axios.get("/orders");
+        return axios.get(`/orders`);
+    },
+
+    getAllOrdersByUserId: (id) => {
+        return axios.get(`/orders/${id}`);
     },
 
     addItem: (id, book, quantity) => {
@@ -17,27 +30,20 @@ const OrderService = {
         });
     },
 
-    deleteItem: (id, orderItemId) => {
-        return axios.post("/delete", {
-            "id": id,
-            "orderItemId": orderItemId
-        });
-    },
-
     getItemsById: (id) => {
         return axios.get(`/items/${id}`);
     },
 
     increaseQuantity: (orderId, orderItemId) => {
-        console.log("order id in service", orderItemId);
+        console.log("orderItemId", orderItemId.id);
         return axios.post(`/increase-qty/${orderId}`, {
-            "orderItemId": orderItemId.id
+            "id": orderItemId.id
         });
     },
 
     decreaseQuantity: (orderId, orderItemId) => {
         return axios.post(`/decrease-qty/${orderId}`, {
-            "orderItemId": orderItemId.id
+            "id": orderItemId.id
         });
     },
 
@@ -69,8 +75,23 @@ const OrderService = {
         return axios.get("/all-total", {
             "orderIds" : orderIds
         });
+    },
+
+    deleteOrderItem : (orderId, orderItemId) => {
+        return axios.post("/delete-item", {
+            "orderId" : orderId,
+            "orderItemId" : orderItemId
+        })
+    },
+
+    cancelOrder : (orderId) => {
+        return axios.post(`/cancel-order/${orderId}`)
+    },
+
+    processOrder: (orderId) => {
+        return axios.post(`/order-processed/${orderId}`
+        );
     }
-    
 }
 
 export default OrderService;

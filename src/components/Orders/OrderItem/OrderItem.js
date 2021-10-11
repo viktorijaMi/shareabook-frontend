@@ -1,8 +1,7 @@
 import React from "react";
 
 const OrderItem = (props) => {
-    const { bookItem, orderId, increaseQuantity, decreaseQuantity } = props;
-    console.log(bookItem)
+    const { bookItem, orderId, increaseQuantity, decreaseQuantity, deleteOrderItem } = props;
     return (
       <tr>
             <td>{bookItem.bookName}</td>
@@ -16,8 +15,9 @@ const OrderItem = (props) => {
             </td>
             <td>
                 {bookItem.quantity} x
-                {bookItem.itemPrice.amount}{bookItem.itemPrice.currency}
+                {bookItem.itemPrice.price}{bookItem.itemPrice.currency}
             </td>
+            <td><button className="btn btn-danger" onClick={() => deleteOrderItem(bookItem)}>DELETE</button></td>
         </tr>
         );
 }

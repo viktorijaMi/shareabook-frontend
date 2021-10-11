@@ -1,34 +1,34 @@
-import axios from "../Custom-axios/auth-axios"
+import axios from "../Custom-axios/auth-axios";
 
 
 const AuthService = {
 
-    registerUser(username, email, role, billingAddress, password, confirmPassword) {
+    getToken() {
+        return localStorage.getItem('USER_KEY')
+    },
+
+    registerUser(username, email, role, billingAddress_streetName, billingAddress_streetNumber, billingAddress_streetCity, billingAddress_streetCountry, password, confirmPassword) {
         return axios.post("/auth/register", {
             "username": username,
             "email" : email,
             "role" : role,
-            "billingAddress" : {
-                "street": billingAddress.street,
-                "streetNumber" : billingAddress.streetNumber,
-                "city" : billingAddress.city,
-                "country" : billingAddress.country
+            "address" : {
+                "street": billingAddress_streetName,
+                "streetNumber" : billingAddress_streetNumber,
+                "city" : billingAddress_streetCity,
+                "country" : billingAddress_streetCountry
             },
-            "password" : {
-                "password" : password
-            },
-            "confirmPassword" : {
-                "password" : confirmPassword
-            }
+            "password" : password,
+            "confirmPassword": confirmPassword
         })
     },
 
-    login(username, password) {
+    loginUser(username, password) {
         return axios.post("/auth/login", {
             "username": username,
-            "password" : {
-                "password" : password
-            }
+            "password" : password
         })
     }
 }
+
+export default AuthService;

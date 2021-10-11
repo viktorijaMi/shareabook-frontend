@@ -2,6 +2,7 @@ import React from "react";
 
 const BookTerm = (props) => {
     const { book, orderId } = props;
+    console.log("book", book);
     return ( 
         <tr>
             <td>
@@ -12,7 +13,7 @@ const BookTerm = (props) => {
             <td>{book.publishedBy.name}</td>
             <td>{book.publishedBy.address.street} {book.publishedBy.address.streetNumber} {book.publishedBy.address.city} {book.publishedBy.address.country}</td>
             <td>
-                {book.price.amount} {book.price.currency}
+                {book.price.price} {book.price.currency}
             </td>
             <td>{book.sales}</td>
             <td>
